@@ -26,8 +26,8 @@ import com.google.ar.core.examples.java.common.helpers.CameraPermissionHelper
 import com.google.ar.core.examples.java.common.helpers.FullScreenHelper
 import com.google.ar.core.examples.java.common.helpers.TapHelper
 import com.google.ar.core.examples.java.common.rendering.ARCoreRenderer
+import com.google.ar.core.examples.java.helloar.databinding.ActivityMainBinding
 import com.google.ar.core.exceptions.*
-import org.rajawali3d.view.SurfaceView
 
 /**
  * This is a simple example that shows how to create an augmented reality (AR) application using the
@@ -36,22 +36,21 @@ import org.rajawali3d.view.SurfaceView
  */
 class HelloArActivity : AppCompatActivity() {
 
-    // Rendering. The Renderers are created here, and initialized when the GL surface is created.
-    private lateinit var surfaceView: SurfaceView
     private var renderer: ARCoreRenderer? = null
 
     private var installRequested: Boolean = false
 
     private lateinit var tapHelper: TapHelper
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        surfaceView = findViewById(R.id.surfaceview)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // Set up tap listener.
         tapHelper = TapHelper(/*context=*/this)
-        surfaceView.setOnTouchListener(tapHelper)
+        binding.surfaceview.setOnTouchListener(tapHelper)
 
         installRequested = false
     }
@@ -80,9 +79,9 @@ class HelloArActivity : AppCompatActivity() {
                 }
 
                 // Create the session.
-                val session = Session(/* context= */this)
+                val session = Session(this)
                 renderer = MyARCoreApp(this, tapHelper, session)
-                surfaceView.setSurfaceRenderer(renderer)
+                binding.surfaceview.setSurfaceRenderer(renderer)
 
             } catch (e: UnavailableArcoreNotInstalledException) {
                 message = "Please install ARCore"
@@ -113,16 +112,17 @@ class HelloArActivity : AppCompatActivity() {
 
         // Note that order matters - see the note in onPause(), the reverse applies here.
         renderer?.onResume()
-        surfaceView.onResume()
+        binding.surfaceview.onResume()
     }
 
     public override fun onPause() {
         super.onPause()
-        surfaceView.onPause()
+        binding.surfaceview.onPause()
         renderer?.onPause()
     }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, results: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, results)
         if (!CameraPermissionHelper.hasCameraPermission(this)) {
             Toast.makeText(this, "Camera permission is needed to run this application", Toast.LENGTH_LONG)
                     .show()
