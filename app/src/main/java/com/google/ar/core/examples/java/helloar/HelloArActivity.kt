@@ -80,7 +80,7 @@ class HelloArActivity : AppCompatActivity() {
 
                 // Create the session.
                 val session = Session(this)
-                renderer = MyARCoreApp(this, tapHelper, session)
+                renderer = RajawaliARCoreRenderer(this, tapHelper, session)
                 binding.surfaceview.setSurfaceRenderer(renderer)
 
             } catch (e: UnavailableArcoreNotInstalledException) {
