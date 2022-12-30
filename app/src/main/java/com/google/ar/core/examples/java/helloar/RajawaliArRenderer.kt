@@ -11,7 +11,7 @@ import org.rajawali3d.loader.LoaderOBJ
 import org.rajawali3d.materials.Material
 import org.rajawali3d.materials.textures.Texture
 
-class RajawaliARCoreRenderer(context: Context, private val tapHelper: TapHelper, session: Session) : ARCoreRenderer(context, session) {
+class RajawaliArRenderer(context: Context, private val tapHelper: TapHelper, session: Session) : ARCoreRenderer(context, session) {
 
     private lateinit var droid: Object3D
 
@@ -33,9 +33,10 @@ class RajawaliARCoreRenderer(context: Context, private val tapHelper: TapHelper,
     override fun onFrame(frame: Frame, ellapsedRealtime: Long, deltaTime: Double) {
 
         val tap = tapHelper.poll()
-
-        if (tap != null && frame.camera.trackingState == TrackingState.TRACKING) {
-            onTap(frame, tap)
+        tap?.let {
+            if (frame.camera.trackingState == TrackingState.TRACKING) {
+                onTap(frame, tap)
+            }
         }
 
         /*

@@ -29,7 +29,7 @@ class TapHelper(context: Context?) : OnTouchListener {
             })
     }
 
-    fun poll(): MotionEvent {
+    fun poll(): MotionEvent? {
         return queuedSingleTaps.poll()
     }
 

@@ -34,7 +34,7 @@ import com.google.ar.core.exceptions.*
  * ARCore API. The application will display any detected planes and will allow the user to tap on a
  * plane to place a 3d model of the Android robot.
  */
-class HelloArActivity : AppCompatActivity() {
+class RajawaliArActivity : AppCompatActivity() {
 
     private var renderer: ARCoreRenderer? = null
 
@@ -49,7 +49,7 @@ class HelloArActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // Set up tap listener.
-        tapHelper = TapHelper(/*context=*/this)
+        tapHelper = TapHelper(this)
         binding.surfaceview.setOnTouchListener(tapHelper)
 
         installRequested = false
@@ -80,7 +80,7 @@ class HelloArActivity : AppCompatActivity() {
 
                 // Create the session.
                 val session = Session(this)
-                renderer = RajawaliARCoreRenderer(this, tapHelper, session)
+                renderer = RajawaliArRenderer(this, tapHelper, session)
                 binding.surfaceview.setSurfaceRenderer(renderer)
 
             } catch (e: UnavailableArcoreNotInstalledException) {
@@ -140,6 +140,6 @@ class HelloArActivity : AppCompatActivity() {
     }
 
     companion object {
-        private val TAG = HelloArActivity::class.java.simpleName
+        private val TAG = RajawaliArActivity::class.java.simpleName
     }
 }
