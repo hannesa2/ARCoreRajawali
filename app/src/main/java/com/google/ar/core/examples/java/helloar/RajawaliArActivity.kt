@@ -67,8 +67,7 @@ class RajawaliArActivity : AppCompatActivity() {
                         installRequested = true
                         return
                     }
-                    ArCoreApk.InstallStatus.INSTALLED -> {
-                    }
+                    ArCoreApk.InstallStatus.INSTALLED -> Unit
                 }
 
                 // ARCore requires camera permissions to operate. If we did not yet obtain runtime
@@ -104,7 +103,7 @@ class RajawaliArActivity : AppCompatActivity() {
             }
 
             if (message != null) {
-                Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, message, Toast.LENGTH_LONG).show()
                 Log.e(TAG, "Exception creating session", exception)
                 return
             }

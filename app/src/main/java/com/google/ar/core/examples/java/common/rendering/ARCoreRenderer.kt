@@ -22,7 +22,6 @@ import com.google.ar.core.Frame
 import com.google.ar.core.Session
 import com.google.ar.core.TrackingState
 import com.google.ar.core.examples.java.common.helpers.DisplayRotationHelper
-import com.google.ar.core.examples.java.common.rendering.CameraBackground
 import com.google.ar.core.exceptions.CameraNotAvailableException
 import org.rajawali3d.materials.textures.StreamingTexture
 import org.rajawali3d.math.Matrix4
@@ -33,8 +32,7 @@ import javax.microedition.khronos.opengles.GL10
  * Base class for implementing ARCore app with rajawali. You have to create class which extends
  * this class and pass it to [org.rajawali3d.view.SurfaceView.setSurfaceRenderer].
  */
-abstract class ARCoreRenderer(context: Context,
-                              private val session: Session) : Renderer(context) {
+abstract class ARCoreRenderer(context: Context, private val session: Session) : Renderer(context) {
 
     private lateinit var backgroundTexture: StreamingTexture
     private val displayRotationHelper = DisplayRotationHelper(context)
@@ -74,7 +72,6 @@ abstract class ARCoreRenderer(context: Context,
     }
 
     override fun initScene() {
-
         // Create camera background
         val plane = CameraBackground()
 
